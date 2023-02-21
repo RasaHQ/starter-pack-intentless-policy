@@ -1,0 +1,6 @@
+[repositories]
+[repositories.rasa-plus]
+url = "https://github.com/rasahq/rasa-plus.git"
+
+[repositories.weizenbot]
+url = "https://github.com/rasahq/weizenbot.git"

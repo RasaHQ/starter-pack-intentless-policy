@@ -1,0 +1,128 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+
+entities:
+  - name
+  - date_of_birth
+  - address
+
+forms:
+  open_savings_account:
+    required_slots:
+    - name
+    - address
+    - date_of_birth
+
+slots:
+  name:
+    type: text
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: open_savings_account
+        requested_slot: name
+  date_of_birth:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: date_of_birth
+      conditions:
+      - active_loop: open_savings_account
+        requested_slot: date_of_birth
+  address:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: address
+      conditions:
+      - active_loop: open_savings_account
+        requested_slot: address
+responses:
+  utter_ask_name:
+  - text: Sure! I'd be happy to help you open a savings account. Let me collect some details first. What is your full name?
+  utter_ask_address:
+  - text: Please enter your current address
+  utter_ask_date_of_birth:
+  - text: What is your date of birth?
+  utter_explain_address:
+  - text: Your address is required for us to complete our know your customer (KYC) due diligence checks as required by law.
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_out_of_scope:
+    - text: "Sorry, but I can't help you with that."
+      metadata:
+        allow_variation: true
+
+  utter_faq_0:
+  - text: You can use Zelle from within our app to send money for free.
+    metadata:
+      question: how can i send money for free?
+  utter_faq_1:
+  - text: 'Please follow the instructions [here](https://example.com) to link your card to the app. '
+    metadata:
+      question: how do I get my card to show in the app?
+  utter_faq_2:
+  - text: Our live exchange rates are available online, 24/7 [here](https://example.com)
+    metadata:
+      question: Where can I find your exchange rates?
+  utter_faq_3:
+  - text: A cash withdrawal may be pending if the funds are not yet available in your
+      account or if the ATM requires additional verification
+    metadata:
+      question: Why would a cash withdrawal be pending?
+  utter_faq_4:
+  - text: We currently offer 24 currencies, including USD, EUR, GBP, JPY, CAD, AUD,
+      and more!
+    metadata:
+      question: How many different currencies can I hold money in?
+  utter_faq_5:
+  - text: Absolutely! We offer a feature that allows you to set up automatic transfers
+      to your account while you're away. Would you like to learn more about this feature?
+    metadata:
+      question: Can I add money automatically to my account while traveling?
+  utter_faq_6:
+  - text: You can contact our customer service team to have your PIN unblocked. You
+      can reach them by calling our toll-free number at 1-800-555-1234.
+    metadata:
+      question: Where can I go to get my PIN unblocked?
+  utter_faq_7:
+  - text: We charge a $5 fee to send or receive a wire transfer. Premium customers
+      get 3 free wire transfers per month.
+    metadata:
+      question: Is there a charge for wire transfers?
+  utter_faq_8:
+  - text: You can apply directly [here] for a loan to help you with your home renovations.
+    metadata:
+      question: I need to borrow some money to renovate my driveway
+  utter_faq_9:
+  - text: We offer personal loans for a variety of purposes. Would you like to know
+      more about our personal loan options?
+    metadata:
+      question: I need a loan
+  utter_faq_10:
+  - text: "If you'd like to add someone as an authorized user on your credit card,\
+      \ please visit us in your local branch. You'll both need to bring ID. "
+    metadata:
+      question: I want to add my wife as an authorized user on my credit card
+  utter_faq_11:
+  - text: If you aren't able to visit your local branch, please call our toll-free
+      number at 1-800-555-1234 and we'll see how we can help
+    metadata:
+      question: I cannot visit the branch
+  utter_faq_12:
+  - text: sorry, I can't help you with that.
+    metadata:
+      question: what's the weather like?
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

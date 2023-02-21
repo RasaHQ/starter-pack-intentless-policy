@@ -1,0 +1,43 @@
+test_stories:
+- story: transfer charge
+  steps:
+  - user: how can I send money without getting charged?
+    bot: You can use Zelle from within our app to send money for free.
+  - user: not zelle. a normal transfer
+    bot: We charge a $5 fee to send or receive a wire transfer. Premium customers get 3 free wire transfers per month.
+- story: add cc user 01
+  steps:
+  - user: I'd like to add my wife to my credit card
+    bot: If you'd like to add someone as an authorized user on your credit card, please visit us in your local branch. You'll both need to bring ID.
+  - user: I'm watching the kids today tho
+    bot: If you aren't able to visit your local branch, please call our toll-free number at 1-800-555-1234 and we'll see how we can help
+- story: add cc user 02
+  steps:
+  - user: please add my son to my card
+    bot: If you'd like to add someone as an authorized user on your credit card, please visit us in your local branch. You'll both need to bring ID.
+  - user: My car's in the shop
+    bot: If you aren't able to visit your local branch, please call our toll-free number at 1-800-555-1234 and we'll see how we can help
+- story: add cc user 03
+  steps:
+  - user: please add my son to my card
+    bot: If you'd like to add someone as an authorized user on your credit card, please visit us in your local branch. You'll both need to bring ID.
+  - user: they're coming to read my meter today
+    bot: If you aren't able to visit your local branch, please call our toll-free number at 1-800-555-1234 and we'll see how we can help
+- story: add cc user 04
+  steps:
+  - user: please add my son to my card
+    bot: If you'd like to add someone as an authorized user on your credit card, please visit us in your local branch. You'll both need to bring ID.
+  - user: I'm on vacation
+    bot: If you aren't able to visit your local branch, please call our toll-free number at 1-800-555-1234 and we'll see how we can help
+- story: add cc user 05
+  steps:
+  - user: i want my daughter to be able to use my card
+    bot: If you'd like to add someone as an authorized user on your credit card, please visit us in your local branch. You'll both need to bring ID.
+  - user: I don't have time for that
+    bot: If you aren't able to visit your local branch, please call our toll-free number at 1-800-555-1234 and we'll see how we can help
+- story: add cc user 06
+  steps:
+  - user: i want my daughter to be able to use my card
+    bot: If you'd like to add someone as an authorized user on your credit card, please visit us in your local branch. You'll both need to bring ID.
+  - user: I've got a broken ankle
+    bot: If you aren't able to visit your local branch, please call our toll-free number at 1-800-555-1234 and we'll see how we can help

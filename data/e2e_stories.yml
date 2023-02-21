@@ -1,0 +1,10 @@
+version: "3.1"
+
+stories:
+
+- story: user gives a reason why they can't visit the branch
+  steps:
+  - user: I'd like to add my wife to my credit card
+  - action: utter_faq_10
+  - user: I've got a broken leg
+  - action: utter_faq_11

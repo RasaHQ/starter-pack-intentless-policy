@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "starter-pack-intentless-policy"
+version = "0.1.0"
+description = "A starter pack for exploring the new Intentless Policy."
+authors = ["Alan Nichol <alan@rasa.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.7,<3.11"
+rasa-plus = { version = "3.5.0a2.dev1", source = "rasa-plus-repo" }
+rasa = { version = "3.5.0a2.dev1", allow-prereleases = true }
+
+[[tool.poetry.source]]
+name = "rasa-plus-repo"
+url = "https://europe-west3-python.pkg.dev/rasa-releases/rasa-plus-py/simple"
+default = false
+secondary = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,44 @@
+name: Model CI
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+env:
+  RASA_PRO_LICENSE: ${{ secrets.RASA_PRO_LICENSE }}
+
+jobs:
+  build-model:
+    name: Build, test, and upload model
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup poetry 🦄
+        uses: rasahq/setup-poetry@v2
+        with:
+          python-version: "3.8"
+          poetry-version: "1.2.2"
+          venv-path: .venv
+
+      - name: Install dependencies
+        run: |
+          poetry install
+
+      - name: Cache Rasa components
+        uses: actions/cache@v3
+        with:
+          path: |
+            .rasa/cache
+          key: rasa
+
+      - name: Train model
+        run: |
+          make train
+
+      - name: Test e2e
+        run: |
+          make test-e2e
