@@ -241,7 +241,7 @@ like rules, stories, forms, etc. Here are some details about how it interacts wi
 - If the `IntentlessPolicy` prediction has low confidence,
   the `RulePolicy` will trigger fallback based on the `core_fallback_threshold`.
 
-<img width="851" alt="image" src="https://user-images.githubusercontent.com/5114084/218722993-48cb9dd1-8abf-423e-a857-d303fa9a63ff.png">
+<img width="851" alt="image" src="./img/readme-intentless-policy-other-primitives.png">
 
 ## We want to hear from you
 
