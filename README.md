@@ -15,7 +15,7 @@ our further developments of this feature.
 
 ## Demo
 
-[Webinar demo](TODO: add link)
+[Webinar demo](https://info.rasa.com/webinars/generative-ai-rasa-using-llms-to-break-free-from-intents-replay)
 
 ## Installation of the beta
 
@@ -70,7 +70,9 @@ tests defined in this repo (`tests/e2e_test_stories.yml`).
 ## IntentlessPolicy
 
 You can build a bot with the new `IntentlessPolicy` just by adding/editing
-the set of responses in the domain file.
+the set of responses in the domain file. You can also train the policy using
+[end-to-end stories](https://rasa.com/docs/rasa/training-data-format/#end-to-end-training).
+Rules and normal (non end-to-end) stories are not used to train this policy.
 
 After adding the policy, do kick the tires on your bot and see how well
 it deals with digressions, follow-ups, ambiguous input, etc. Once you've
@@ -91,7 +93,8 @@ policies:
 ```
 
 And set `use_nlu_confidence_as_score: True` for any rule-based policies in
-your pipeline:
+your pipeline. Otherwise the rule-based policies will always make predictions
+with confidence value 1.0, ignoring any uncertainty stemming from the NLU prediction.
 
 ```yaml
 - name: MemoizationPolicy
@@ -101,8 +104,6 @@ your pipeline:
   use_nlu_confidence_as_score: True
   core_fallback_threshold: 0.22
 ```
-
-We recommend adding the `IntentlessPolicy` at the end of your policy list.
 
 The policy uses a remote service to train and predict and needs to be
 able to make requests to a Rasa hosted ML service. During training, the policy will
@@ -151,6 +152,15 @@ policies:
     nlu_abstention_threshold: 0.9
 ```
 
+### Can I use this with TED?
+
+There is no reason why you can’t also have TED in your configuration. However,
+
+- TED frequently makes predictions with very high confidence values (~0.99)
+  so will often override what the `IntentlessPolicy` is doing.
+- TED and the `IntentlessPolicy` are trying to solve similar problems, so your system
+  is easier to read about if you just use one or the other.
+
 ### Testing the Policy
 
 As part of the beta, we're also releasing a beta version of
@@ -179,7 +189,7 @@ You can run the tests with `rasa test e2e`.
 ## Evaluating And Tuning the Intentless Policy
 
 You can compare the performance of your bot with and without the intentless policy
-by creating some end-to-end test cases. 
+by creating some end-to-end test cases.
 
 First, split your NLU data into train and test sets:
 
@@ -195,9 +205,9 @@ python scripts/create_test_cases.py -u train_test_split/test_data.yml -s 'data/c
 
 Replacing the `-s` argument with the path to your stories file or a glob to match multiple filenames.
 
-Inspect the `generated_test_cases.yml` to check these test cases make sense. 
+Inspect the `generated_test_cases.yml` to check these test cases make sense.
 
-Re-train your model- ensuring you only use the **training** data from your split. 
+Re-train your model- ensuring you only use the **training** data from your split.
 
 Run your test cases:
 
@@ -207,8 +217,13 @@ rasa test e2e -f generated_test_cases.yml
 
 You can then try different policies, parmeters, etc. in your `config.yml` to compare test performance.
 
-
 ## FAQ
+
+### How is data handled?
+
+The policy makes use of an intentless dialogue model which is implemented as a hosted service.
+
+We log requests made to this server so that we can improve the model over time.
 
 ### How does the IntentlessPolicy work with other Rasa primitives
 
@@ -227,3 +242,25 @@ like rules, stories, forms, etc. Here are some details about how it interacts wi
   the `RulePolicy` will trigger fallback based on the `core_fallback_threshold`.
 
 <img width="851" alt="image" src="https://user-images.githubusercontent.com/5114084/218722993-48cb9dd1-8abf-423e-a857-d303fa9a63ff.png">
+
+## We want to hear from you
+
+At Rasa we’re keen to improve our products and hear from users’ experience. We’d love to hear from you, especially:
+
+- How many use cases did you implement?
+- How many intents did you define?
+- How many stories did you write?
+- How was the success rate of your test stories impacted by the `IntentlessPolicy`?
+
+## Disclaimer
+
+This software release, including the Intentless Policy feature, is beta software.
+It’s provided to you only for trial and evaluation, “as is”. You cannot use this beta software release
+as part of any production environment. Beta software releases are not intended for processing sensitive
+or personal data. There may be bugs or errors. We may never commercialize some beta software.
+We disclaim all liabilities, warranties, representations, or covenants related to this beta release.
+
+Your use of the Intentless Policy feature and any other software or material included in this release
+is subject to the [Beta Software Terms](https://rasa.com/beta-terms/).
+
+Please make sure you read these terms and conditions prior to using this beta release.
