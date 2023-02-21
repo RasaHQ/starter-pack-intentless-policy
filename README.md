@@ -15,7 +15,7 @@ our further developments of this feature.
 
 ## Demo
 
-[Webinar demo](https://info.rasa.com/webinars/generative-ai-rasa-using-llms-to-break-free-from-intents-replay)
+[Webinar demo](https://hubs.ly/Q01CLhyG0)
 
 ## Installation of the beta
 
@@ -159,7 +159,7 @@ There is no reason why you can’t also have TED in your configuration. However,
 - TED frequently makes predictions with very high confidence values (~0.99)
   so will often override what the `IntentlessPolicy` is doing.
 - TED and the `IntentlessPolicy` are trying to solve similar problems, so your system
-  is easier to read about if you just use one or the other.
+  is easier to reason about if you just use one or the other.
 
 ### Testing the Policy
 
