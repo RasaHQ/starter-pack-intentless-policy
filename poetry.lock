@@ -1634,7 +1634,7 @@ transformers = ["sentencepiece[sentencepiece] (>=0.1.96,<0.2.0)", "transformers 
 
 [[package]]
 name = "rasa-plus"
-version = "3.5.0b1"
+version = "3.5.0b2"
 description = "Rasa Pro provides Enterprise-grade, flexible infrastructure and APIs, on top of Rasa Open Source, for enterprise scale, complexity, and interoperability."
 category = "main"
 optional = false
@@ -2578,7 +2578,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<3.11"
-content-hash = "5cefe25bc715e2343ce7b9aac0912f80ba2119598149b96b94f66422c012a024"
+content-hash = "c59d853822c136d9ba436b594a252fef6e6ec796d55a20668e26c1ef0f1dfc87"
 
 [metadata.files]
 absl-py = [
@@ -4275,8 +4275,8 @@ rasa = [
     {file = "rasa-3.5.0b1.tar.gz", hash = "sha256:c457e10b7d1b61a04bc08a84f42f3ea9611ab8ec9d4693a6e592292bcd2f4fe5"},
 ]
 rasa-plus = [
-    {file = "rasa_plus-3.5.0b1-py3-none-any.whl", hash = "sha256:b0f3796d25ef33c3843324b23cee2837a6f829ce6985136e385fa1173404314f"},
-    {file = "rasa_plus-3.5.0b1.tar.gz", hash = "sha256:5b931bae6c2f9c2904047fa4c5410e997310901617bed31348801cfb1cdf34e5"},
+    {file = "rasa_plus-3.5.0b2-py3-none-any.whl", hash = "sha256:6a0436dbee13052eff2b7fd91eb45fc5fb3ca5249d6cb3ed1579af028a14ca29"},
+    {file = "rasa_plus-3.5.0b2.tar.gz", hash = "sha256:44065152ea512017fce3bffa4ccc090ac5d9b5e8f9f8c9a187a03dd2f5a06ec5"},
 ]
 rasa-sdk = [
     {file = "rasa_sdk-3.5.0b1-py3-none-any.whl", hash = "sha256:f6e1896f5d8b1a131ec223994de9cb7940e7cf12e97c4da3b62cc4a3e2e37624"},

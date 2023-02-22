@@ -35,10 +35,10 @@ or `rasa train` as usual.
 ### Installation (your project)
 
 You can install the beta by updating your Rasa Plus dependency to version
-`3.5.0b1`:
+`3.5.0b2`:
 
-- using pip: `pip install rasa-plus==3.5.0b1`
-- using poetry: `poetry add rasa-plus==3.5.0b1`
+- using pip: `pip install rasa-plus==3.5.0b2`
+- using poetry: `poetry add rasa-plus==3.5.0b2`
 
 ### Installation (starter pack)
 
