@@ -53,6 +53,7 @@ to each answer in the `metadata` field of each response.
 First, setup [Poetry](https://python-poetry.org/docs/#installation)
 using `curl -sSL <https://install.python-poetry.org> | python3 -`. It is
 recommended use Poetry 1.2.0 and newer.
+> 💡 if you're using MacOS you can also use `brew install poetry` 
 
 Then, clone this repo and install the dependencies:
 
