@@ -223,15 +223,15 @@ rasa test e2e -f generated_test_cases.yml
 
 You can then try different policies, parmeters, etc. in your `config.yml` to compare test performance.
 
-## How does the IntentlessPolicy works?
+## How does the IntentlessPolicy work?
 
-The new `rasa_plus.ml.IntentlessPolicy` is different from existing Rasa policies models 
+The new `rasa_plus.ml.IntentlessPolicy` is different from existing Rasa policies 
 (such as `MemoizationPolicy`, `TEDPolicy`, `UnexpecTEDIntentPolicy` and others, 
 more details are in the docs [https://rasa.com/docs/rasa/policies](https://rasa.com/docs/rasa/policies)):
 
-- the policy class requires communication to the rasa-hosted web service which lives at the following address [`ml.rasa-dev.io`](http://ml.rasa-dev.io/)
-- the training is performed on the service side and every time a new model is trained, the model ID is generated and stored in the policy cache (which is inside `.rasa` directory of the project)
-- the inference (predicting of bot’s responses on user’s prompt) is also performed by the service, to that end, the model ID and conversation tracker are sent to the rasa web service.
+- the policy class requires communication to a rasa-hosted web service which lives at the following address [`ml.rasa-dev.io`](http://ml.rasa-dev.io/)
+- the training is performed on the service side and every time a new model is trained, the model ID is generated and stored in your local policy cache (which is inside `.rasa` directory of your project)
+- inference (predicting of bot’s responses on user’s prompt) is also performed by the service, to that end, the model ID and conversation tracker are sent to the rasa web service.
 
 ### Training process
 
