@@ -223,6 +223,37 @@ rasa test e2e -f generated_test_cases.yml
 
 You can then try different policies, parmeters, etc. in your `config.yml` to compare test performance.
 
+## How does the IntentlessPolicy work?
+
+The new `rasa_plus.ml.IntentlessPolicy` is different from existing Rasa policies 
+(such as `MemoizationPolicy`, `TEDPolicy`, `UnexpecTEDIntentPolicy` and others, 
+more details are in the docs [https://rasa.com/docs/rasa/policies](https://rasa.com/docs/rasa/policies)):
+
+- the policy class requires communication to a rasa-hosted web service which lives at the following address [`ml.rasa-dev.io`](http://ml.rasa-dev.io/)
+- the training is performed on the service side and every time a new model is trained, the model ID is generated and stored in your local policy cache (which is inside `.rasa` directory of your project)
+- inference (predicting of bot’s responses on user’s prompt) is also performed by the service, to that end, the model ID and conversation tracker are sent to the rasa web service.
+
+### Training process
+
+During training, responses from the domain file and e2e training stories 
+are sent to the rasa web service and stored on rasa servers.
+
+> Models from different rasa customers are stored separately, so every customer can 
+> access only to its organisation’s models (which is based on rasa pro license key)
+
+The model ID, returned as a result of the training is a randomly generated string 
+used by the `IntentlessPolicy` class to perform inference every time the policy 
+is triggered.
+
+### Inference process
+
+Once the model is trained, it can be used for inference. Depending 
+on `IntentlessPolicy` and pipeline configuration in `config.yml`, the new policy 
+can either augment traditional policies or be used as primary policy.
+
+In any case, during the inference the remote rasa service is used to make a decision 
+about the next step in the conversation.
+
 ## FAQ
 
 ### How is data handled?
