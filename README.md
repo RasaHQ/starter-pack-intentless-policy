@@ -29,7 +29,13 @@ as an environment variable:
 export RASA_PRO_LICENSE="eyJhbGciOiJSU..."
 ```
 
-With the license being set, you should be able to run `rasa run`
+you also need to set a feature flag:
+
+```bash
+export RASA_PRO_BETA_INTENTLESS=true
+```
+
+With the license and feature flag set, you should be able to run `rasa run`
 or `rasa train` as usual.
 
 ### Installation (your project)
