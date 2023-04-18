@@ -1,5 +1,7 @@
 *~
 .rasa
+.idea/
+.env
 models
 tests/e2e_results.yml
 
