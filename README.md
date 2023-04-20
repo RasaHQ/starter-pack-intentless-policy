@@ -269,7 +269,7 @@ python scripts/create_test_cases.py -u train_test_split/test_data.yml -s 'data/c
 
 Replacing the `-s` argument with the path to your stories file or a glob to match multiple filenames.
 
-Inspect the `generated_test_cases.yml` to check these that test cases make sense.
+Inspect the `generated_test_cases.yml` to check that these test cases make sense.
 
 Re-train your model- ensuring you only use the **training** data from your split for NLU training.
 
