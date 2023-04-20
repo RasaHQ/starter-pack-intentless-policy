@@ -34,7 +34,7 @@ some advanced linguistic phenomena out of the box.
 The examples in the webinar recording are also part of the end-to-end
 tests defined in this repo (`tests/e2e_test_stories.yml`).
 
-## Installation of the beta
+## Installing the Intentless Policy
 
 The starter pack in this repository is ready to go after a few short steps:
 * Install the dependencies using `poetry install`
@@ -45,7 +45,7 @@ The starter pack in this repository is ready to go after a few short steps:
 ### Installing the beta in your own project
 
 To use the beta in your own project, you'll need to install the `rasa-plus` package
-which is a drop-in replacement for the `rasa` for Rasa Pro license holders. 
+which is a drop-in replacement for the `rasa` package for Rasa Pro license holders. 
 To access this package you need  to first add our custom Rasa Plus repository 
 for installation with 
 [pip](https://rasa.com/docs/rasa/installation/rasa-pro/installation/#installing-with-pip)
@@ -92,7 +92,7 @@ policies:
     nlu_abstention_threshold: 0.9
 ```
 
-## Configuring other policies to work together with the intentless policy
+## Configuring other policies to work together with the Intentless Policy
 
 For any rule-based policies in your pipeline, set `use_nlu_confidence_as_score: True`. 
 Otherwise, the rule-based policies will always make predictions
@@ -125,6 +125,7 @@ uncertain:
 <img width="851" alt="image" src="./img/readme-intentless-policy-other-primitives.png">
 
 **What about TED?**
+
 There is no reason why you can’t also have TED in your configuration. However,
 
 - TED frequently makes predictions with very high confidence values (~0.99)
@@ -132,7 +133,57 @@ There is no reason why you can’t also have TED in your configuration. However,
 - TED and the `IntentlessPolicy` are trying to solve similar problems, so your system
   is easier to reason about if you just use one or the other.
 
-## Training with the Intentless Policy
+## Steering the Intentless Policy
+
+The first step to steering the intentless policy is adding and editing responses in the
+domain file. Any response in the domain file can be chosen as an response by 
+the intentless policy. This whitelisting ensures that your assistant can never utter any
+inappropriate responses.
+
+```yaml
+  utter_faq_4:
+  - text: We currently offer 24 currencies, including USD, EUR, GBP, JPY, CAD, AUD,
+      and more!
+  utter_faq_5:
+  - text: Absolutely! We offer a feature that allows you to set up automatic transfers
+      to your account while you're away. Would you like to learn more about this feature?
+  utter_faq_6:
+  - text: You can contact our customer service team to have your PIN unblocked. You
+      can reach them by calling our toll-free number at 1-800-555-1234.
+```
+Beyond having the `utter_` prefix, the naming of the utterances is not relevant.
+
+
+The second step is to add 
+[end-to-end stories](https://rasa.com/docs/rasa/training-data-format/#end-to-end-training)
+to `data/e2e_stories.yml`.
+These stories teach the LLM about your domain it can start judging when to say what.
+
+```yaml
+- story: currencies
+  steps:
+  - user: How many different currencies can I hold money in?
+  - action: utter_faq_4
+
+- story: automatic transfers travel
+  steps:
+  - user: Can I add money automatically to my account while traveling?
+  - action: utter_faq_5
+
+- story: user gives a reason why they can't visit the branch
+  steps:
+  - user: I'd like to add my wife to my credit card
+  - action: utter_faq_10
+  - user: I've got a broken leg
+  - action: utter_faq_11
+```
+
+The stories and utterances in combination are used to steer the LLM. The difference 
+here to the existing policies is, that you don't need to add a lot of intent examples 
+to get this system going.
+
+
+## Training the Intentless Policy
 
 With the intentless policy you can train your assistant just as before using
 
@@ -154,22 +205,7 @@ policy is triggered.
 > access only to its organisation’s models (which is based on rasa pro license key)
 
 
-### How to steer the intentless policy
-
-The first step to steering the intentless policy is adding and editing responses in the
-domain file. Any response in the domain file can be chosen as an response by 
-the intentless policy. This whitelisting ensures that your assistant can never utter any
-inappropriate responses.
-
-The second step is to add 
-[end-to-end stories](https://rasa.com/docs/rasa/training-data-format/#end-to-end-training)
-to `data/e2e_stories.yml`.
-These stories teach the LLM about your domain it can start judging when to say what. 
-The difference here to the existing policies is, that you don't need to add a lot of 
-intent examples to get this system going.
-
-
-## Testing your assistant with the intentless policy
+## Testing the Intentless Policy
 
 Once trained, you can test your assistant interactively by running the following command:
 
@@ -206,7 +242,9 @@ test_cases:
 ```
 
 **Please ensure all your test stories have unique names!**
-You can run the tests with `rasa test e2e -f tests/e2e_test_stories.yml`.
+After setting the beta feature flag for E2E testing in your current shell with
+`export RASA_PRO_BETA_E2E=true`, you can run the tests 
+with `rasa test e2e -f tests/e2e_test_stories.yml` 
 
 ### Generating End-to-End stories from existing training data
 
@@ -244,26 +282,22 @@ rasa test e2e -f generated_test_cases.yml
 You can then try different policies, parameters, etc. in your `config.yml` to compare test performance.
 
 
-## Inference process
-
-Once the model is trained, it can be used for inference. Depending 
-on `IntentlessPolicy` and pipeline configuration in `config.yml`, the new policy 
-can either augment traditional policies or be used as primary policy.
-
-In any case, during the inference the remote rasa service is used to make a decision 
-about the next step in the conversation.
-
 ## FAQ
 
-### How does the IntentlessPolicy work?
+### How does the Intentless Policy work as a remote service?
 
-The new `rasa_plus.ml.IntentlessPolicy` is different from existing Rasa policies 
-(such as `MemoizationPolicy`, `TEDPolicy`, `UnexpecTEDIntentPolicy` and others, 
-more details are in the docs [https://rasa.com/docs/rasa/policies](https://rasa.com/docs/rasa/policies)):
+The new `rasa_plus.ml.IntentlessPolicy` is different from existing 
+[Rasa policies](https://rasa.com/docs/rasa/policies), such as 
+`MemoizationPolicy` or `TEDPolicy` in being implemented as a remote service rather
+than a local machine learning model. 
 
-- the policy class requires communication to a rasa-hosted web service which lives at the following address [`ml.rasa-dev.io`](http://ml.rasa-dev.io/)
-- the training is performed on the service side and every time a new model is trained, the model ID is generated and stored in your local policy cache (which is inside `.rasa` directory of your project)
-- inference (predicting of bot’s responses on user’s prompt) is also performed by the service, to that end, the model ID and conversation tracker are sent to the rasa web service.
+To this end, the policy requires a connection to the rasa-hosted 
+service at [`ml.rasa-dev.io`](http://ml.rasa-dev.io/). The training is performed on the 
+service side and every time a new model is trained, a model ID is generated and stored 
+in your local policy cache (which is inside `.rasa` directory of your project). 
+Inference, i.e. prediction of bot’s responses on user’s prompt, is also performed 
+by the service. To do that, the model ID and conversation tracker are sent to the 
+rasa web service.
 
 ### How is data handled?
 
@@ -275,6 +309,12 @@ We log requests made to this server so that we can improve the model over time.
 
 Entities are currently not handled by the intentless policy. They have to still be dealt 
 with using the traditional NLU approaches and slots.
+
+### What about custom actions?
+
+At this point, the intentless policy can only predict utterances but not custom actions.
+Triggering custom actions needs to be done by traditional policies, such as the rule-
+or memoization policy.
 
 ## We want to hear from you
 
