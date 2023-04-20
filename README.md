@@ -157,7 +157,7 @@ Beyond having the `utter_` prefix, the naming of the utterances is not relevant.
 The second step is to add 
 [end-to-end stories](https://rasa.com/docs/rasa/training-data-format/#end-to-end-training)
 to `data/e2e_stories.yml`.
-These stories teach the LLM about your domain it can start judging when to say what.
+These stories teach the LLM about your domain, so it can figure out when to say what.
 
 ```yaml
 - story: currencies
