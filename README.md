@@ -244,20 +244,7 @@ rasa test e2e -f generated_test_cases.yml
 You can then try different policies, parameters, etc. in your `config.yml` to compare test performance.
 
 
-### Training process
-
-During training, responses from the domain file and e2e training stories 
-are sent to the rasa web service and stored on rasa servers.
-
-> Models from different rasa customers are stored separately, so every customer can 
-> access only to its organisation’s models (which is based on rasa pro license key)
-
-The model ID, returned as a result of the training and stored locally in your 
-policy cache inside the `.rasa` directory is a randomly generated string 
-used by the `IntentlessPolicy` class to perform inference every time the policy 
-is triggered.
-
-### Inference process
+## Inference process
 
 Once the model is trained, it can be used for inference. Depending 
 on `IntentlessPolicy` and pipeline configuration in `config.yml`, the new policy 
@@ -288,7 +275,6 @@ We log requests made to this server so that we can improve the model over time.
 
 Entities are currently not handled by the intentless policy. They have to still be dealt 
 with using the traditional NLU approaches and slots.
-
 
 ## We want to hear from you
 
