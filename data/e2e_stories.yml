@@ -8,3 +8,68 @@ stories:
   - action: utter_faq_10
   - user: I've got a broken leg
   - action: utter_faq_11
+
+- story: user wants to send money
+  steps:
+  - user: how can i send money for free?
+  - action: utter_faq_0
+
+- story: user wants card to show in app
+  steps:
+  - user: how do I get my card to show in the app?
+  - action: utter_faq_1
+
+- story: exchange rates
+  steps:
+  - user: Where can I find your exchange rates?
+  - action: utter_faq_2
+
+- story: pending cash withdrawal
+  steps:
+  - user: Why would a cash withdrawal be pending?
+  - action: utter_faq_3
+
+- story: currencies
+  steps:
+  - user: How many different currencies can I hold money in?
+  - action: utter_faq_4
+
+- story: automatic transfers travel
+  steps:
+  - user: Can I add money automatically to my account while traveling?
+  - action: utter_faq_5
+
+- story: unblock pin
+  steps:
+  - user: Where can I go to get my PIN unblocked?
+  - action: utter_faq_6
+
+- story: wire transfer charge
+  steps:
+  - user: Is there a charge for wire transfers?
+  - action: utter_faq_7
+
+- story: home renovation loan
+  steps:
+  - user: I need to borrow some money to renovate my driveway
+  - action: utter_faq_8
+
+- story: loan general
+  steps:
+  - user: I need a loan
+  - action: utter_faq_9
+
+- story: authorize additional user
+  steps:
+  - user: I want to add my wife as an authorized user on my credit card
+  - action: utter_faq_10
+
+- story: cannot visit branch
+  steps:
+  - user: I cannot visit the branch
+  - action: utter_faq_11
+
+- story: weather out of scope
+  steps:
+  - user: what's the weather like?
+  - action: utter_faq_12
