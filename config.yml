@@ -3,59 +3,42 @@ recipe: default.v1
 language: en
 
 pipeline:
-  - name: WhitespaceTokenizer
-  - name: CountVectorsFeaturizer
-  - name: LogisticRegressionClassifier
-    random_state: 42
-    max_iter: 100
-  - name: CRFEntityExtractor
+- name: WhitespaceTokenizer
+- name: CountVectorsFeaturizer
+- name: LogisticRegressionClassifier
+  random_state: 42
+  max_iter: 100
+- name: CRFEntityExtractor
     # BILOU_flag determines whether to use BILOU tagging or not.
-    BILOU_flag: True
+  BILOU_flag: true
     # features to extract in the sliding window
-    features:
-      [
-        ["low", "title", "upper"],
-        [
-          "bias",
-          "low",
-          "prefix5",
-          "prefix2",
-          "suffix5",
-          "suffix3",
-          "suffix2",
-          "upper",
-          "title",
-          "digit",
-          "pattern",
-          "text_dense_features",
-        ],
-        ["low", "title", "upper"],
-      ]
+  features: [["low", "title", "upper"], ["bias", "low", "prefix5", "prefix2", "suffix5", "suffix3", "suffix2", "upper", "title", "digit", "pattern", "text_dense_features"], ["low", "title", "upper"]]
     # The maximum number of iterations for optimization algorithms.
-    "max_iterations": 50
+  "max_iterations": 50
     # weight of the L1 regularization
-    "L1_c": 0.1
+  "L1_c": 0.1
     # weight of the L2 regularization
-    "L2_c": 0.1
+  "L2_c": 0.1
     # Name of dense featurizers to use.
     # If list is empty all available dense features are used.
-    "featurizers": []
+  "featurizers": []
     # Indicated whether a list of extracted entities should be split into individual entities for a given entity type
-    "split_entities_by_comma":
-      address: False
-      email: True
+  "split_entities_by_comma":
+    address: false
+    email: true
 
   #- name: ResponseSelector
   #  random_seed: 666
   #  epochs: 1
-  - name: EntitySynonymMapper
+- name: EntitySynonymMapper
 
 policies:
-  - name: MemoizationPolicy
-    max_history: 5
-    use_nlu_confidence_as_score: True
-  - name: RulePolicy
-    use_nlu_confidence_as_score: True
-    core_fallback_threshold: 0.22
-  - name: rasa_plus.ml.IntentlessPolicy
-    nlu_abstention_threshold: 0.95
+- name: MemoizationPolicy
+  max_history: 5
+  use_nlu_confidence_as_score: true
+- name: RulePolicy
+  use_nlu_confidence_as_score: true
+  core_fallback_threshold: 0.22
+- name: rasa_plus.ml.IntentlessPolicy
+  nlu_abstention_threshold: 0.95
+assistant_id: 20230627-164356-gentle-starling
