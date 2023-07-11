@@ -7,8 +7,8 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.11"
-rasa-plus = { version = ">=3.7.0b1, <3.7", source = "rasa-plus-repo" , allow-prereleases = true }
-rasa = { version = ">=3.7.0b1, <3.7", allow-prereleases = true }
+rasa-plus = { version = ">=3.7.0b1", source = "rasa-plus-repo" , allow-prereleases = true }
+rasa = { version = ">=3.7.0b1", allow-prereleases = true }
 
 [[tool.poetry.source]]
 name = "rasa-plus-repo"
