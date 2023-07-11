@@ -6,8 +6,8 @@ authors = ["Alan Nichol <alan@rasa.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.7,<3.11"
-rasa-plus = { version = ">=3.7.0b1, <3.7", source = "rasa-plus-repo" }
+python = ">=3.9,<3.11"
+rasa-plus = { version = ">=3.7.0b1, <3.7", source = "rasa-plus-repo" , allow-prereleases = true }
 rasa = { version = ">=3.7.0b1, <3.7", allow-prereleases = true }
 
 [[tool.poetry.source]]
