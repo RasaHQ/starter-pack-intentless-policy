@@ -7,7 +7,7 @@ the policy and for extending it.
 The new intentless policy leverages large language models (LLMs) to
 complement existing rasa components
 
-Please see the [documentation on the Intentless Policy](https://rasa.com/docs/rasa/llms/llm-intentless).
+Please see the [documentation on the Intentless Policy](https://rasa.com/docs/rasa/next/llms/llm-intentless/).
 
 ## Beta State Notice 🚨
 
